@@ -1,0 +1,14 @@
+{
+    "name": "com.mogze.core",
+    "version": "0.0.1",
+    "displayName": "Mogze Core",
+    "description": "Mogze Core library",
+    "unity": "2019.1",
+    "dependencies": {},
+    "keywords": [],
+    "author": {
+        "name": "Mogze",
+        "email": "info@mogze.com",
+        "url": "https://www.mogze.com"
+    }
+}
