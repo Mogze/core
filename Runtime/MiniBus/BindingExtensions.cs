@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using EventData = System.Collections.Generic.Dictionary<string, object>;
 
-namespace zehreken.i_cheat.MiniBus
+namespace Mogze.Core.MiniBus
 {
 	public static class BindingExtensions
 	{

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace zehreken.i_cheat.MiniBus
+namespace Mogze.Core.MiniBus
 {
 	public class MiniBusTests
 	{

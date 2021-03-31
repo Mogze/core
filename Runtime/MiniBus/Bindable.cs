@@ -1,4 +1,4 @@
-﻿namespace zehreken.i_cheat.MiniBus
+﻿namespace Mogze.Core.MiniBus
 {
 	public abstract class Bindable<TObj, TValue>
 	{

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace zehreken.i_cheat.MiniBus
+namespace Mogze.Core.MiniBus
 {
 	public static class Bus<T, TData>
 	{
