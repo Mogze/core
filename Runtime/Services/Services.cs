@@ -1,23 +1,36 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Mogze.Core.Services
 {
     public static class Services
     {
+        private static bool isInitialized = false;
         private static readonly Dictionary<Type, IService> ServicesMap = new Dictionary<Type, IService>();
 
         public static void AddService<T>(T service) where T : IService
         {
-            ServicesMap.Add(typeof(T), service);
+            if (!isInitialized)
+            {
+                ServicesMap.Add(typeof(T), service);
+            }
+            else
+            {
+                Debug.LogError("You are trying to add a service after initialization");
+            }
         }
 
         public static void Initialize()
         {
+            if (isInitialized) return;
+            
             foreach (var service in ServicesMap)
             {
                 service.Value.Initialize();
             }
+
+            isInitialized = true;
         }
 
         public static void Close()

@@ -5,19 +5,19 @@ namespace Mogze.Core.MiniBus
 {
 	public static class MiniBus
 	{
-		private static readonly Dictionary<GameEvent, List<Action<Dictionary<string, object>>>> eventToActionMap = new Dictionary<GameEvent, List<Action<Dictionary<string, object>>>>();
+		private static readonly Dictionary<GameEvent, List<Action<IMessage>>> eventToActionMap = new Dictionary<GameEvent, List<Action<IMessage>>>();
 
-		public static void SubscribeToEvent(GameEvent e, Action<Dictionary<string, object>> a)
+		public static void SubscribeToEvent(GameEvent e, Action<IMessage> a)
 		{
 			if (!eventToActionMap.ContainsKey(e))
 			{
-				eventToActionMap.Add(e, new List<Action<Dictionary<string, object>>>());
+				eventToActionMap.Add(e, new List<Action<IMessage>>());
 			}
 
 			eventToActionMap[e].Add(a);
 		}
 
-		public static void UnsubscribeFromEvent(GameEvent e, Action<Dictionary<string, object>> a)
+		public static void UnsubscribeFromEvent(GameEvent e, Action<IMessage> a)
 		{
 			if (eventToActionMap.ContainsKey(e))
 			{
@@ -25,7 +25,7 @@ namespace Mogze.Core.MiniBus
 			}
 		}
 
-		public static void PublishEvent(GameEvent e, Dictionary<string, object> data = null)
+		public static void PublishEvent(GameEvent e, IMessage data = null)
 		{
 			if (eventToActionMap.ContainsKey(e))
 			{
