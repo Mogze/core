@@ -5,31 +5,34 @@ namespace Mogze.Core.MiniBus
 {
 	public static class MiniBus
 	{
-		private static readonly Dictionary<GameEvent, List<Action<IMessage>>> eventToActionMap = new Dictionary<GameEvent, List<Action<IMessage>>>();
+		private static readonly Dictionary<Type, List<Action<IMessage>>> eventToActionMap = new Dictionary<Type, List<Action<IMessage>>>();
 
-		public static void SubscribeToEvent(GameEvent e, Action<IMessage> a)
+		public static void SubscribeToEvent<T>(Action<IMessage> a) where T : IMessage
 		{
-			if (!eventToActionMap.ContainsKey(e))
+            var t = typeof(T);
+			if (!eventToActionMap.ContainsKey(t))
 			{
-				eventToActionMap.Add(e, new List<Action<IMessage>>());
+				eventToActionMap.Add(t, new List<Action<IMessage>>());
 			}
 
-			eventToActionMap[e].Add(a);
+			eventToActionMap[t].Add(a);
 		}
 
-		public static void UnsubscribeFromEvent(GameEvent e, Action<IMessage> a)
+		public static void UnsubscribeFromEvent<T>(Action<IMessage> a) where T : IMessage
 		{
-			if (eventToActionMap.ContainsKey(e))
+            var t = typeof(T);
+			if (eventToActionMap.ContainsKey(t))
 			{
-				eventToActionMap[e].Remove(a);
+				eventToActionMap[t].Remove(a);
 			}
 		}
 
-		public static void PublishEvent(GameEvent e, IMessage data = null)
+		public static void PublishEvent<T>(IMessage data = null) where T : IMessage
 		{
-			if (eventToActionMap.ContainsKey(e))
+            var t = typeof(T);
+			if (eventToActionMap.ContainsKey(t))
 			{
-				foreach (var action in eventToActionMap[e])
+				foreach (var action in eventToActionMap[t])
 				{
 					action(data);
 				}

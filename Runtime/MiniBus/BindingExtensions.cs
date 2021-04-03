@@ -8,83 +8,83 @@ namespace Mogze.Core.MiniBus
 	public static class BindingExtensions
 	{
 		// Extensions TextToString
-		public static void Bind(this Text textMesh, GameEvent e)
+		public static void Bind<T>(this Text textMesh) where T : IMessage
 		{
-			Bus<Text, string>.SubscribeTo(e, new TextStringBinder(textMesh));
+			BindingBus<Text, string>.SubscribeTo<T>(new TextStringBinder(textMesh));
 		}
 
-		public static void Unbind(this Text textMesh, GameEvent e)
+		public static void Unbind<T>(this Text textMesh) where T : IMessage
 		{
-			Bus<Text, string>.UnsubscribeFrom(e, new TextStringBinder(textMesh));
+			BindingBus<Text, string>.UnsubscribeFrom<T>(new TextStringBinder(textMesh));
 		}
 
-		public static void Publish(GameEvent e, string value)
+		public static void Publish<T>(string value) where T : IMessage
 		{
-			Bus<Text, string>.Publish(e, value);
+			BindingBus<Text, string>.Publish<T>(value);
 		}
 
 		// Extensions ImageToSprite
-		public static void Bind(this Image image, GameEvent e)
+		public static void Bind<T>(this Image image) where T : IMessage
 		{
-			Bus<Image, Sprite>.SubscribeTo(e, new ImageSpriteBinder(image));
+			BindingBus<Image, Sprite>.SubscribeTo<T>(new ImageSpriteBinder(image));
 		}
 
-		public static void Unbind(this Image image, GameEvent e)
+		public static void Unbind<T>(this Image image) where T : IMessage
 		{
-			Bus<Image, Sprite>.UnsubscribeFrom(e, new ImageSpriteBinder(image));
+			BindingBus<Image, Sprite>.UnsubscribeFrom<T>( new ImageSpriteBinder(image));
 		}
 
-		public static void Publish(GameEvent e, Sprite value)
+		public static void Publish<T>(Sprite value) where T : IMessage
 		{
-			Bus<Image, Sprite>.Publish(e, value);
+			BindingBus<Image, Sprite>.Publish<T>(value);
 		}
 
 		// Extensions ImageToFloat
-		public static void BindFill(this Image image, GameEvent e)
+		public static void BindFill<T>(this Image image) where T : IMessage
 		{
-			Bus<Image, float>.SubscribeTo(e, new ImageFillBinder(image));
+			BindingBus<Image, float>.SubscribeTo<T>(new ImageFillBinder(image));
 		}
 
-		public static void UnbindFill(this Image image, GameEvent e)
+		public static void UnbindFill<T>(this Image image) where T : IMessage
 		{
-			Bus<Image, float>.UnsubscribeFrom(e, new ImageFillBinder(image)); // new instance is wrong
+			BindingBus<Image, float>.UnsubscribeFrom<T>(new ImageFillBinder(image)); // new instance is wrong
 		}
 
-		public static void PublishFill(GameEvent e, float value)
+		public static void PublishFill<T>(float value) where T : IMessage
 		{
-			Bus<Image, float>.Publish(e, value);
+			BindingBus<Image, float>.Publish<T>(value);
 		}
 
 		// Extensions GameObjectToBool
-		public static void Bind(this GameObject obj, GameEvent e)
+		public static void Bind<T>(this GameObject obj) where T : IMessage
 		{
-			Bus<GameObject, bool>.SubscribeTo(e, new GObjectBoolBinder(obj));
+			BindingBus<GameObject, bool>.SubscribeTo<T>(new GObjectBoolBinder(obj));
 		}
 
-		public static void Unbind(this GameObject obj, GameEvent e)
+		public static void Unbind<T>(this GameObject obj) where T : IMessage
 		{
-			Bus<GameObject, bool>.UnsubscribeFrom(e, new GObjectBoolBinder(obj)); // new instance is wrong
+			BindingBus<GameObject, bool>.UnsubscribeFrom<T>(new GObjectBoolBinder(obj)); // new instance is wrong
 		}
 
-		public static void Publish(GameEvent e, bool value)
+		public static void Publish<T>(bool value) where T : IMessage
 		{
-			Bus<GameObject, bool>.Publish(e, value);
+			BindingBus<GameObject, bool>.Publish<T>(value);
 		}
 
 		// Extensions ActionToData
-		public static void Bind(this Action<EventData> obj, GameEvent e)
+		public static void Bind<T>(this Action<EventData> obj) where T : IMessage
 		{
-			Bus<Action<EventData>, EventData>.SubscribeTo(e, new ActionEventBinder(obj));
+			BindingBus<Action<EventData>, EventData>.SubscribeTo<T>(new ActionEventBinder(obj));
 		}
 
-		public static void Unbind(this Action<EventData> obj, GameEvent e)
+		public static void Unbind<T>(this Action<EventData> obj) where T : IMessage
 		{
-			Bus<Action<EventData>, EventData>.UnsubscribeFrom(e, new ActionEventBinder(obj));
+			BindingBus<Action<EventData>, EventData>.UnsubscribeFrom<T>(new ActionEventBinder(obj));
 		}
 
-		public static void Publish(GameEvent e, EventData value)
+		public static void Publish<T>(EventData value) where T : IMessage
 		{
-			Bus<Action<EventData>, EventData>.Publish(e, value);
+			BindingBus<Action<EventData>, EventData>.Publish<T>(value);
 		}
 	}
 }

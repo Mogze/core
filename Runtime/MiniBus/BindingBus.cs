@@ -1,31 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Mogze.Core.MiniBus
 {
-	public static class Bus<T, TData>
+	public static class BindingBus<TObj, TData>
 	{
-		private static Dictionary<GameEvent, List<Bindable<T, TData>>> eventMap = new Dictionary<GameEvent, List<Bindable<T, TData>>>();
+		private static Dictionary<Type, List<Bindable<TObj, TData>>> eventMap = new Dictionary<Type, List<Bindable<TObj, TData>>>();
 
-		public static void Publish(GameEvent e, TData value)
+		public static void Publish<T>(TData value) where T : IMessage
 		{
-			if (!eventMap.ContainsKey(e))
+            var t = typeof(T);
+			if (!eventMap.ContainsKey(t))
 				return;
 
-			foreach (var obj in eventMap[e])
+			foreach (var obj in eventMap[t])
 			{
 				obj.Update(value);
 			}
 		}
 
-		public static void SubscribeTo(GameEvent e, Bindable<T, TData> obj)
+		public static void SubscribeTo<T>(Bindable<TObj, TData> obj) where T : IMessage
 		{
-			if (!eventMap.ContainsKey(e))
+            var t = typeof(T);
+			if (!eventMap.ContainsKey(t))
 			{
-				eventMap.Add(e, new List<Bindable<T, TData>>());
+				eventMap.Add(t, new List<Bindable<TObj, TData>>());
 			}
 
-			Bindable<T, TData> temp = null;
-			foreach (var bindable in eventMap[e])
+			Bindable<TObj, TData> temp = null;
+			foreach (var bindable in eventMap[t])
 			{
 				if (bindable.Equals(obj))
 				{
@@ -35,15 +38,16 @@ namespace Mogze.Core.MiniBus
 			}
 
 			if (temp == null)
-				eventMap[e].Add(obj);
+				eventMap[t].Add(obj);
 		}
 
-		public static void UnsubscribeFrom(GameEvent e, Bindable<T, TData> obj)
+		public static void UnsubscribeFrom<T>(Bindable<TObj, TData> obj) where T : IMessage
 		{
-			if (!eventMap.ContainsKey(e)) return;
+            var t = typeof(T);
+			if (!eventMap.ContainsKey(t)) return;
 
-			Bindable<T, TData> temp = null;
-			foreach (var bindable in eventMap[e])
+			Bindable<TObj, TData> temp = null;
+			foreach (var bindable in eventMap[t])
 			{
 				if (bindable.Equals(obj))
 				{
@@ -55,7 +59,7 @@ namespace Mogze.Core.MiniBus
 			if (temp != null)
 			{
 				{
-					eventMap[e].Remove(temp);
+					eventMap[t].Remove(temp);
 				}
 			}
 		}
