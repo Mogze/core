@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace Mogze.Core.Services
 {
@@ -21,7 +22,7 @@ namespace Mogze.Core.Services
             }
         }
 
-        public static async void Initialize()
+        public static async Task Initialize()
         {
             if (isInitialized) return;
             
