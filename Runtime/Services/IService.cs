@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
+
 namespace Mogze.Core.Services
 {
     public interface IService
     {
-        void Initialize();
+        Task Initialize();
         void Close();
     }
 }

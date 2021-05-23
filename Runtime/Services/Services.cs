@@ -21,13 +21,13 @@ namespace Mogze.Core.Services
             }
         }
 
-        public static void Initialize()
+        public static async void Initialize()
         {
             if (isInitialized) return;
             
             foreach (var service in ServicesMap)
             {
-                service.Value.Initialize();
+                await service.Value.Initialize();
             }
 
             isInitialized = true;
