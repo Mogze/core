@@ -1,6 +1,6 @@
 {
     "name": "com.mogze.core",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "displayName": "Mogze Core",
     "description": "Mogze Core library",
     "unity": "2019.1",
