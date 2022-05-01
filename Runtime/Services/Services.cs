@@ -25,13 +25,24 @@ namespace Mogze.Core.Services
         public static async Task Initialize()
         {
             if (isInitialized) return;
-            
+
             foreach (var service in ServicesMap)
             {
                 await service.Value.Initialize();
             }
 
             isInitialized = true;
+        }
+
+        /// <summary>
+        /// To be paired with OnApplicationPause event in Unity.
+        /// </summary>
+        public static void Pause(bool isPaused)
+        {
+            foreach (var service in ServicesMap)
+            {
+                service.Value.Pause(isPaused);
+            }
         }
 
         public static void Close()
