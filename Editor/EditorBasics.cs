@@ -18,6 +18,7 @@ namespace Mogze.Core
             }
         }
     }
+
     public class EditorBasics : EditorWindow
     {
         public const string StartScenePathKey = "StartScenePathKey";
